@@ -21,18 +21,10 @@ body {
   @apply  tracking-wide text-lg font-semibold uppercase;
 }
 
-.btn-style {
-  min-height: 2rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  line-height: 24px;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  color: white;
-  background-color: #ea001e;
-  transition: all 0.3s ease;
+.btn {
+  @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
+}
+
+.blue-gradient_text {
+  @apply bg-gradient-to-r from-[#00c6ff] to-[#0072ff] bg-clip-text text-transparent;
 }
