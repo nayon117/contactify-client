@@ -2,11 +2,10 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 
-
 const Footer = () => {
   return (
     <div>
-      <footer className="flex flex-col justify-around gap-5 bg-sky-50 py-8 text-black">
+      <footer className="flex flex-col justify-around gap-5  py-8 text-black">
         <nav className="text-lg">
           <ul className="flex h-full flex-wrap items-center justify-center gap-3">
             <li>
