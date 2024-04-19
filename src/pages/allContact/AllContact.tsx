@@ -28,7 +28,7 @@ const AllContact = () => {
   const [, refetch] = useCart();
 
   useEffect(() => {
-    fetch("http://localhost:5000/contacts")
+    fetch("https://contactify-server-chi.vercel.app/contacts")
       .then((response) => response.json())
       .then((data) => setContacts(data));
   }, []);
@@ -46,7 +46,7 @@ const AllContact = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // User confirmed deletion, proceed with deletion
-        fetch(`http://localhost:5000/contacts/${id}`, {
+        fetch(`https://contactify-server-chi.vercel.app/contacts/${id}`, {
           method: "DELETE",
         })
           .then((response) => response.json())
@@ -98,7 +98,9 @@ const AllContact = () => {
     <div className="my-12">
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-2xl text-center font-semibold">All Contacts</h1>
-        <Link to='/favourits'><Button>Favourits</Button></Link>
+        <Link to="/favourits">
+          <Button>Favourits</Button>
+        </Link>
       </div>
       {contacts.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">

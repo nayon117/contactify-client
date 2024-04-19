@@ -44,7 +44,7 @@ const EditModal: React.FC<EditModalProps> = ({
     setSubmitting(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/contacts/${contact._id}`,
+        `https://contactify-server-chi.vercel.app/contacts/${contact._id}`,
         {
           method: "PUT",
           headers: {
@@ -58,14 +58,14 @@ const EditModal: React.FC<EditModalProps> = ({
         updateContact({ ...contact, ...values });
         closeModal();
         Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: 'Contact updated successfully',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000 
-          });
+          icon: "success",
+          title: "Success!",
+          text: "Contact updated successfully",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       } else {
         console.error(
           "Failed to update contact:",

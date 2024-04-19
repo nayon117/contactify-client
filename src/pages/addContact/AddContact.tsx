@@ -16,8 +16,6 @@ import { formSchema } from "@/lib/validations";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
-
-
 const AddContact = () => {
   const [submitting, setSubmitting] = useState(false);
   // 1. Define your form.
@@ -36,25 +34,28 @@ const AddContact = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setSubmitting(true);
     try {
-      const response = await fetch("http://localhost:5000/contacts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const response = await fetch(
+        "https://contactify-server-chi.vercel.app/contacts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
       if (response.ok) {
         console.log("Form data sent successfully!");
         // Reset form after successful submission
         form.reset();
         Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Contact added successfully',
+          icon: "success",
+          title: "Success!",
+          text: "Contact added successfully",
           toast: true,
-          position: 'top-end',
+          position: "top-end",
           showConfirmButton: false,
-          timer: 3000 
+          timer: 3000,
         });
       } else {
         console.error(
