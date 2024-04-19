@@ -1,9 +1,78 @@
+import { useEffect, useState } from "react";
+import { CiEdit } from "react-icons/ci";
+import { MdAutoDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
+
+interface Contact {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  picture: string;
+}
 
 const AllContact = () => {
-    return(
-        <div>
-             <p> Welcome to AllContact part </p>
+  const [contacts, setContacts] = useState<Contact[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/contacts")
+      .then((response) => response.json())
+      .then((data) => setContacts(data));
+  }, []);
+
+  const deleteContact = (id: string) => {
+    fetch(`http://localhost:5000/contacts/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          setContacts(contacts.filter((contact) => contact._id !== id));
+        }
+      });
+  };
+
+  return (
+    <div className=" my-12">
+      {contacts.length > 0 ? (
+        <div className="grid grid-cols-1 gap-4  md:grid-cols-3 lg:grid-cols-4">
+          {contacts.map((contact) => (
+            <div
+              key={contact._id}
+              className="px-2 py-4 bg-white shadow-sm rounded-lg"
+            >
+              <img
+                src={contact.picture}
+                alt={contact.name}
+                className="w-16 h-16 text-center mx-auto object-cover rounded-full"
+              />
+              <div className="mt-4 text-center ">
+                <h2 className="text-center  text-gray-500">{contact.name}</h2>
+                <p className="text-sm">Email: {contact.email}</p>
+                <p className="text-sm">Phone: {contact.phone}</p>
+                <p className="text-sm">Address: {contact.address}</p>
+              </div>
+              <div className="flex items-center justify-evenly mt-4">
+                <Link to={`/updateContact/${contact._id}`} >
+                <button className="btn">
+                  <CiEdit className="text-xl" />
+                </button>
+                </Link>
+                <button
+                  onClick={() => deleteContact(contact._id)}
+                  className="btn"
+                >
+                  <MdAutoDelete className="text-xl" />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-    )
-}
+      ) : (
+        <div className="text-center">No contacts found</div>
+      )}
+    </div>
+  );
+};
 export default AllContact;
