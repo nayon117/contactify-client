@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/validations";
+import Swal from "sweetalert2";
 
 interface Contact {
   _id: string;
@@ -56,6 +57,15 @@ const EditModal: React.FC<EditModalProps> = ({
         console.log("Contact updated successfully!");
         updateContact({ ...contact, ...values });
         closeModal();
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Contact updated successfully',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000 
+          });
       } else {
         console.error(
           "Failed to update contact:",

@@ -2,6 +2,7 @@ import EditModal from "@/components/modal/EditModal";
 import { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdAutoDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 // Define Contact type
 interface Contact {
@@ -25,15 +26,37 @@ const AllContact = () => {
   }, []);
 
   const deleteContact = (id: string) => {
-    fetch(`http://localhost:5000/contacts/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          setContacts(contacts.filter((contact) => contact._id !== id));
-        }
-      });
+    // Display confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed deletion, proceed with deletion
+        fetch(`http://localhost:5000/contacts/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              setContacts(contacts.filter((contact) => contact._id !== id));
+              // Display success toast notification
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Your contact has been deleted.',
+                timer: 3000, // Adjust the duration as needed
+                showConfirmButton: false
+              });
+            }
+          });
+      }
+    });
   };
 
   const handleEditClick = (contact: Contact) => {
