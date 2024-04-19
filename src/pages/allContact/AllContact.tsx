@@ -13,15 +13,29 @@ interface Contact {
 
 const AllContact = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
+
   useEffect(() => {
     fetch("http://localhost:5000/contacts")
       .then((response) => response.json())
       .then((data) => setContacts(data));
   }, []);
+
+  const deleteContact = (id: string) => {
+    fetch(`http://localhost:5000/contacts/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          setContacts(contacts.filter((contact) => contact._id !== id));
+        }
+      });
+  };
+
   return (
-    <div className="section-container my-12">
+    <div className=" my-12">
       {contacts.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4  md:grid-cols-3 lg:grid-cols-4">
           {contacts.map((contact) => (
             <div
               key={contact._id}
@@ -40,11 +54,14 @@ const AllContact = () => {
               </div>
               <div className="flex items-center justify-evenly mt-4">
                 <button className="btn">
-                    <CiEdit className="text-xl" />
+                  <CiEdit className="text-xl" />
                 </button>
-                <button className="btn">
-                    <MdAutoDelete className="text-xl" />
-                    </button>
+                <button
+                  onClick={() => deleteContact(contact._id)}
+                  className="btn"
+                >
+                  <MdAutoDelete className="text-xl" />
+                </button>
               </div>
             </div>
           ))}
