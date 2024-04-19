@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import { FaHeart } from "react-icons/fa";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import useCart from "@/hooks/useCart";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 // Define Contact type
 interface Contact {
@@ -94,6 +96,10 @@ const AllContact = () => {
 
   return (
     <div className="my-12">
+      <div className="flex items-center justify-between mb-12">
+        <h1 className="text-2xl text-center font-semibold">All Contacts</h1>
+        <Link to='/favourits'><Button>Favourits</Button></Link>
+      </div>
       {contacts.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {contacts.map((contact) => (

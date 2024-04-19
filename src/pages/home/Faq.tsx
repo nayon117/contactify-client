@@ -3,16 +3,41 @@ import { useState } from "react";
 const Faq = () => {
   const [isOpen, setIsOpen] = useState(null);
 
-  const handleToggle = (idx:any) =>
+  const handleToggle = (idx) =>
     setIsOpen((prevIdx) => (prevIdx === idx ? null : idx));
 
   const datas = [
-    { title: 'Adding Contacts', color: 'green', description: 'Learn how to add contacts to your list with ease. Whether it\'s clients, colleagues, or friends, we\'ve got you covered.'},
-    { title: 'Managing Contacts', color: 'sky', description: 'Discover how to efficiently manage your contacts. From updating details to marking favorites, we provide the tools you need.'},
-    { title: 'Contact Cards', color: 'purple', description: 'Explore the features of our contact cards. Easily view and access contact information in a visually appealing format.'},
-    { title: 'Contact Updates', color: 'amber', description: 'Find out how to update contact details seamlessly. Keep your contact list up-to-date with our simple update process.'},
-    { title: 'Deleting Contacts', color: 'red', description: 'Learn how to remove unwanted contacts from your list. Our deletion process ensures a smooth and hassle-free experience.'}
-];
+    {
+      title: "Adding Contacts",
+      color: "green",
+      description:
+        "Learn how to add contacts to your list with ease. Whether it's clients, colleagues, or friends, we've got you covered.",
+    },
+    {
+      title: "Managing Contacts",
+      color: "sky",
+      description:
+        "Discover how to efficiently manage your contacts. From updating details to marking favorites, we provide the tools you need.",
+    },
+    {
+      title: "Contact Cards",
+      color: "purple",
+      description:
+        "Explore the features of our contact cards. Easily view and access contact information in a visually appealing format.",
+    },
+    {
+      title: "Contact Updates",
+      color: "amber",
+      description:
+        "Find out how to update contact details seamlessly. Keep your contact list up-to-date with our simple update process.",
+    },
+    {
+      title: "Deleting Contacts",
+      color: "red",
+      description:
+        "Learn how to remove unwanted contacts from your list. Our deletion process ensures a smooth and hassle-free experience.",
+    },
+  ];
 
   return (
     <div className="space-y-4 py-14">
