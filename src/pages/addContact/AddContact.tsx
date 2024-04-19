@@ -14,12 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/validations";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
-// const formSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// })
+
 
 const AddContact = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -50,6 +47,15 @@ const AddContact = () => {
         console.log("Form data sent successfully!");
         // Reset form after successful submission
         form.reset();
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Contact added successfully',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000 
+        });
       } else {
         console.error(
           "Failed to send form data:",

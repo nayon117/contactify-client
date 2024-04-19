@@ -1,8 +1,11 @@
+import Banner from "./Banner";
+import Faq from "./Faq";
 
 const Home = () => {
     return(
         <div>
-             <p> Welcome to Home part </p>
+              <Banner/>
+              <Faq/>
         </div>
     )
 }
