@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdAutoDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 interface Contact {
   _id: string;
@@ -53,9 +54,11 @@ const AllContact = () => {
                 <p className="text-sm">Address: {contact.address}</p>
               </div>
               <div className="flex items-center justify-evenly mt-4">
+                <Link to={`/updateContact/${contact._id}`} >
                 <button className="btn">
                   <CiEdit className="text-xl" />
                 </button>
+                </Link>
                 <button
                   onClick={() => deleteContact(contact._id)}
                   className="btn"
