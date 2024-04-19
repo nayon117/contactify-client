@@ -20,6 +20,7 @@ interface Contact {
 }
 
 const AllContact = () => {
+  // states
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +34,7 @@ const AllContact = () => {
       .then((data) => setContacts(data));
   }, []);
 
+  // delete contact onclick handler
   const deleteContact = (id: string) => {
     // Display confirmation dialog
     Swal.fire({
@@ -67,16 +69,19 @@ const AllContact = () => {
     });
   };
 
+  // handle edit button onclick
   const handleEditClick = (contact: Contact) => {
     setSelectedContact(contact);
     setIsModalOpen(true);
   };
 
+  // close modal
   const handleCloseModal = () => {
     setSelectedContact(null);
     setIsModalOpen(false);
   };
 
+  // Add to cart handler
   const handleAddToCart = (contact: Contact) => {
     axiosPublic.post("/carts", contact).then((res) => {
       console.log(res.data);
@@ -144,6 +149,7 @@ const AllContact = () => {
         <div className="text-center">No contacts found</div>
       )}
 
+     {/* modal functionality */}
       {isModalOpen && selectedContact && (
         <EditModal
           contact={selectedContact}

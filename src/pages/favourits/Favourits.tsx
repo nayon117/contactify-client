@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import useCart from "@/hooks/useCart";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 
+// Define Contact type
 interface Contact {
   _id: string;
   name: string;
@@ -16,6 +17,7 @@ const Favourits = () => {
   const axiosPublic = useAxiosPublic();
   const [cart, refetch] = useCart();
 
+  // delete favourate onclick handler
   const handleDelete = (id: string) => {
     Swal.fire({
       title: "Are you sure?",
