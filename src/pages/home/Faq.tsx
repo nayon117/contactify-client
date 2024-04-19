@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 const Faq = () => {
-  const [isOpen, setIsOpen] = useState(null);
+  const [isOpen, setIsOpen] = useState<number | null>(null);
 
-  const handleToggle = (idx) =>
+  const handleToggle = (idx: number) =>
     setIsOpen((prevIdx) => (prevIdx === idx ? null : idx));
 
   const datas = [
