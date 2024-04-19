@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdAutoDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import { FaHeart } from "react-icons/fa";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useCart from "@/hooks/useCart";
 
 // Define Contact type
 interface Contact {
@@ -19,6 +22,9 @@ const AllContact = () => {
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const axiosPublic = useAxiosPublic();
+  const [, refetch] = useCart();
+
   useEffect(() => {
     fetch("http://localhost:5000/contacts")
       .then((response) => response.json())
@@ -28,13 +34,13 @@ const AllContact = () => {
   const deleteContact = (id: string) => {
     // Display confirmation dialog
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         // User confirmed deletion, proceed with deletion
@@ -47,11 +53,11 @@ const AllContact = () => {
               setContacts(contacts.filter((contact) => contact._id !== id));
               // Display success toast notification
               Swal.fire({
-                icon: 'success',
-                title: 'Deleted!',
-                text: 'Your contact has been deleted.',
+                icon: "success",
+                title: "Deleted!",
+                text: "Your contact has been deleted.",
                 timer: 3000, // Adjust the duration as needed
-                showConfirmButton: false
+                showConfirmButton: false,
               });
             }
           });
@@ -60,13 +66,30 @@ const AllContact = () => {
   };
 
   const handleEditClick = (contact: Contact) => {
-    setSelectedContact(contact); // Set the selected contact for editing
-    setIsModalOpen(true); // Open the modal
+    setSelectedContact(contact);
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setSelectedContact(null); // Reset the selected contact
-    setIsModalOpen(false); // Close the modal
+    setSelectedContact(null);
+    setIsModalOpen(false);
+  };
+
+  const handleAddToCart = (contact: Contact) => {
+    axiosPublic.post("/carts", contact).then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${name} added to favourites`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // refetch cart to update the cart items count
+        refetch();
+      }
+    });
   };
 
   return (
@@ -74,7 +97,13 @@ const AllContact = () => {
       {contacts.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {contacts.map((contact) => (
-            <div key={contact._id} className="px-2 py-4 bg-white shadow-sm rounded-lg">
+            <div
+              key={contact._id}
+              className="px-2 py-4 bg-white shadow-sm rounded-lg relative"
+            >
+              <div onClick={() => handleAddToCart(contact)}>
+                <FaHeart className="h-5 w-5"></FaHeart>
+              </div>
               <img
                 src={contact.picture}
                 alt={contact.name}
@@ -87,10 +116,16 @@ const AllContact = () => {
                 <p className="text-sm">Address: {contact.address}</p>
               </div>
               <div className="flex items-center justify-evenly mt-4">
-                <button className="btn" onClick={() => handleEditClick(contact)}>
+                <button
+                  className="btn"
+                  onClick={() => handleEditClick(contact)}
+                >
                   <CiEdit className="text-xl" />
                 </button>
-                <button onClick={() => deleteContact(contact._id)} className="btn">
+                <button
+                  onClick={() => deleteContact(contact._id)}
+                  className="btn"
+                >
                   <MdAutoDelete className="text-xl" />
                 </button>
               </div>
@@ -100,18 +135,18 @@ const AllContact = () => {
       ) : (
         <div className="text-center">No contacts found</div>
       )}
-      
+
       {isModalOpen && selectedContact && (
         <EditModal
           contact={selectedContact}
           closeModal={handleCloseModal}
           updateContact={(updatedContact) => {
-            setContacts((prevContacts) => 
+            setContacts((prevContacts) =>
               prevContacts.map((contact) =>
                 contact._id === updatedContact._id ? updatedContact : contact
               )
             );
-            handleCloseModal(); 
+            handleCloseModal();
           }}
         />
       )}

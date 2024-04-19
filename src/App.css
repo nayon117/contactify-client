@@ -31,3 +31,7 @@ body {
 .no-focus {
   @apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-transparent
   }
+
+  .heartStar {
+    border-radius: 0px 28px 0px 28px;
+  }
