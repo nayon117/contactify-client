@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="section-container flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-4">
+      <header className="section-container flex flex-wrap sm:justify-start sm:flex-nowrap w-full  text-sm py-4">
         <nav
           className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
           aria-label="Global"
@@ -38,17 +38,10 @@ const Navbar = () => {
             }`}
           >
             <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-              <Link
-                to="/add-contact"
-                className="font-medium text-blue-500"
-                aria-current="page"
-              >
+              <Link to="/add-contact" className="btn " aria-current="page">
                 Add Contacts
               </Link>
-              <Link
-                to="/all-contact"
-                className="font-medium text-gray-600 hover:text-gray-400"
-              >
+              <Link to="/all-contact" className="btn ">
                 All Contacts
               </Link>
             </div>

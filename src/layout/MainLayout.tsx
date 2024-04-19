@@ -5,7 +5,7 @@ import '../App.css'
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="bg-slate-300/20">
       <Navbar />
       <div className="min-h-screen container mx-auto px-4 md:px-8 lg:px-16">
         <Outlet></Outlet>
