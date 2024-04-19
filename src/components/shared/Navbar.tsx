@@ -18,7 +18,7 @@ const Navbar = () => {
           aria-label="Global"
         >
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex-none text-xl font-semibold">
+            <Link to="/" className="flex items-center text-xl font-semibold">
               <MdConnectWithoutContact className="text-2xl ml-2" />
               Contactify
             </Link>
