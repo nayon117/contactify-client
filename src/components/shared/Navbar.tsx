@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
+import { MdConnectWithoutContact } from "react-icons/md";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +19,7 @@ const Navbar = () => {
         >
           <div className="flex items-center justify-between">
             <Link to="/" className="flex-none text-xl font-semibold">
+              <MdConnectWithoutContact className="text-2xl ml-2" />
               Contactify
             </Link>
             <div className="sm:hidden">
